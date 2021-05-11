@@ -140,7 +140,8 @@ obtenerUltimoLugarSinFicha(col){
 
     //si encuentra un lugar libre en esa columna ,retorna el espacio para luego asignar la ficha
    let columnas=this.matrizEspacios[col];
-   for (let index = 0; index < columnas.length; index++) {
+   console.log(columnas);
+   for (let index =  columnas.length-1; index > 0; index--) {
        
             if(columnas[index].ficha==null)
                     return columnas[index];
@@ -148,12 +149,14 @@ obtenerUltimoLugarSinFicha(col){
    }
 
    return null;
+ 
+}
+
+cambiarTurno(){
+
   
-        
-    
-
-
-
+    this.turno=!this.turno;
+   
     
 }
 

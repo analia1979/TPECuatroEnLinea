@@ -8,6 +8,7 @@ class Juego {
         this.width=width;
         this.tablero=new Tablero(this.contexto);
         this.fichaSeleccionada=null;
+      
         this.modoMoviendo=false;
         this.jugadores=[];
        
@@ -33,14 +34,15 @@ class Juego {
     }
 
     moverFicha(clickedX,clickedY){
-
+        
         if(this.modoMoviendo && this.fichaSeleccionada){
 
             this.fichaSeleccionada.moverFicha(clickedX,clickedY);
             this.draw();
-
+            
 
         }
+       
     }
 
     soltarFicha() {
@@ -63,13 +65,20 @@ class Juego {
             let espacio=this.tablero.obtenerUltimoLugarSinFicha(nroColumna);
             this.moverFicha(espacio.posX,espacio.posY);
             espacio.ficha=this.fichaSeleccionada;
-            this.modoMoviendo=false;   
+            this.modoMoviendo=false; 
+            return true; 
         }
-        else
-        console.log('error de colmna')
+        else{
+           
+           
+            this.modoMoviendo=false;
+           return false;
+        }
 
 
-
+    }
+    cambiarTurno(){
+        this.tablero.cambiarTurno();
     }
 
 }

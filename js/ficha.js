@@ -6,6 +6,7 @@ constructor(posX,posY,radio,color,contexto){
     this.color=color;
     this.radio=radio;
     this.contexto=contexto;
+    this.cancelarMovimiento=false;
 
 
 }
@@ -37,6 +38,11 @@ moverFicha(clickedX,clickedY){
     this.posX=clickedX;
     this.posY=clickedY;
   
+}
+
+puedeMoverse(){
+
+    return this.cancelarMovimiento;
 }
 
 
