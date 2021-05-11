@@ -66,6 +66,7 @@ class Tablero {
 
            x++; 
         }
+       console.log(this.matrizEspacios); 
     }
 
     inicializarFichasJugadores(){
