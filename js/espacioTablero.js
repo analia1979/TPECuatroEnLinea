@@ -24,9 +24,12 @@ class EspacioTablero{
        
     
     }
+
+  
     
     
     
+
     
     
     

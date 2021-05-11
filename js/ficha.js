@@ -45,5 +45,10 @@ puedeMoverse(){
     return this.cancelarMovimiento;
 }
 
+obtenerColor(){
+
+    return this.color;
+}
+
 
 }

@@ -8,9 +8,10 @@ class Juego {
         this.width=width;
         this.tablero=new Tablero(this.contexto);
         this.fichaSeleccionada=null;
-      
+       //this.cantidad=0;
         this.modoMoviendo=false;
         this.jugadores=[];
+        this.jugando=true;
        
     }
 
@@ -60,11 +61,14 @@ class Juego {
 
      
         let nroColumna=this.tablero.obtenerColumna(posX,posY);
-        console.log(nroColumna);
+       // console.log(nroColumna);
         if(nroColumna!=-1){
             let espacio=this.tablero.obtenerUltimoLugarSinFicha(nroColumna);
-            this.moverFicha(espacio.posX,espacio.posY);
-            espacio.ficha=this.fichaSeleccionada;
+            this.moverFicha(espacio[0].posX,espacio[0].posY);
+          //  console.log(espacio);
+            espacio[0].ficha=this.fichaSeleccionada;
+          //  console.log(espacio);
+            this.buscarCuatroEnLinea(espacio);
             this.modoMoviendo=false; 
             return true; 
         }
@@ -80,5 +84,35 @@ class Juego {
     cambiarTurno(){
         this.tablero.cambiarTurno();
     }
+
+    buscarCuatroEnLinea(espacio){
+       let x=espacio[1];
+       let y=espacio[2];
+        let casillero=espacio[0];
+        let cantidad=0;
+        cantidad=this.tablero.buscarHorizontalDerecha(x,y,casillero,cantidad);
+        console.log('cantidad por derecha'+cantidad);
+        if (cantidad<4){
+            
+            cantidad=this.tablero.buscarHorizontalIzquierda(x,y,casillero,cantidad);
+            cantidad--; // le resto uno porque sino me sumo yo dos veces
+            console.log('cantidad por izquierda'+ cantidad);
+            if(cantidad==4){
+                console.log('gano');
+               this.terminarJuego();
+            }
+
+        }
+        else
+            this.terminarJuego();
+
+    }
+
+    terminarJuego(){
+
+       this.jugando=false;
+
+    }
+
 
 }

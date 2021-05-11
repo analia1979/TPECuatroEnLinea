@@ -144,7 +144,7 @@ obtenerUltimoLugarSinFicha(col){
    for (let index =  columnas.length-1; index > 0; index--) {
        
             if(columnas[index].ficha==null)
-                    return columnas[index];
+                    return [columnas[index],col,index];
        
    }
 
@@ -158,6 +158,52 @@ cambiarTurno(){
     this.turno=!this.turno;
    
     
+}
+
+buscarHorizontalDerecha(x,y,casillero,cant){
+
+    let color=casillero.ficha.obtenerColor();
+    console.log(color);
+    if(x==this.filas-1){ // no tiene derecha solo debe sumarse a si mismo;
+            cant++;
+    }else{
+    
+    for (let index = x; index <this.filas-1; index++) {
+            if(this.matrizEspacios[index][y].ficha!==null)
+                if(this.matrizEspacios[index][y].ficha.color==color){
+                            cant++
+            }
+      
+        if(cant==4 || this.matrizEspacios[index][y].ficha==null||this.matrizEspacios[index][y].ficha.color!=color){
+            return cant;
+        } 
+    }}
+    return cant;
+}
+buscarHorizontalIzquierda(x,y,casillero,cant){
+   
+    let color=casillero.ficha.obtenerColor();
+    console.log(color);
+  if(x==this.filas-1){
+        
+
+  }
+  else{
+  
+        for (let index = x; index >0; index--) {
+        
+            if(this.matrizEspacios[index][y].ficha!=null && this.matrizEspacios[index][y].ficha.obtenerColor()==color){
+                cant++;
+            }
+            if(cant==4||this.matrizEspacios[index][y].ficha==null || this.matrizEspacios[index][y].ficha.obtenerColor()!=color){
+                return cant;
+            }
+            
+            
+        }
+    }
+    return cant;
+   
 }
 
 
