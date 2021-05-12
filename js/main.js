@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 canvas=document.getElementById('tableroJuego');
-canvas.width = 1200;
+canvas.width = 1600;
 canvas.height = 800;
 ctx=canvas.getContext('2d');
 let ficha=null;
 let movimientoValido=true;
-let cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
-cuatroEnLinea.draw();
+/* let cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
+cuatroEnLinea.draw(); */
 //let jugando=true;
 
 canvas.addEventListener('mousedown',(e)=>{   
@@ -48,7 +48,9 @@ let btnDibujarMatriz=document.getElementById('btnMatriz');
 btnDibujarMatriz.addEventListener('click',()=>{
 
    
-    cuatroEnLinea.comenzarJuego();
+    cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
+    cuatroEnLinea.draw();
+    cuatroEnLinea.tablero.dibujarJugador();
 
 })
 

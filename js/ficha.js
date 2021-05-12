@@ -6,7 +6,7 @@ constructor(posX,posY,radio,color,contexto){
     this.color=color;
     this.radio=radio;
     this.contexto=contexto;
-    this.cancelarMovimiento=false;
+    this.cancelarMovimiento=true;
 
 
 }
@@ -35,14 +35,21 @@ isClicked(clickedX,clickedY){
 
 moverFicha(clickedX,clickedY){
 
+   if(this.cancelarMovimiento){
     this.posX=clickedX;
     this.posY=clickedY;
+}
   
 }
 
 puedeMoverse(){
 
     return this.cancelarMovimiento;
+}
+
+pararMovimiento(){
+
+    this.cancelarMovimiento=false;
 }
 
 obtenerColor(){

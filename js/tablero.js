@@ -13,14 +13,14 @@ class Tablero {
         this.col=6;
         this.inicializarFichasJugadores();
         this.inicializarTablero();
-        this.turno=true; // asigno directamente turno al jugador1
+        this.turno=this.asignarTurno(); // asigno turno aleatoreamente
     
     }
 
     draw(){
 
         // a cada ficha le digo que se dibuje
-      
+    // this.dibujarJugador();
       for (let fila = 0; fila < this.fila; fila++) {
          for (let columna = 0; columna < this.col; columna++) {
             
@@ -43,6 +43,56 @@ class Tablero {
        });
 
     }
+
+    asignarTurno(){
+
+        
+        let result = Math.floor((Math.random() * 2) + 1); 
+
+        if (result == 1) {
+          //  this.dibujarJugador();
+            return true;
+          
+        } else {
+            //this.dibujarJugador();
+           return false;
+        }
+
+    }
+
+    dibujarJugador(){
+
+       
+            if (this.turno) {
+                this.dibujarNombre('Jugador 1', 927,425);
+    
+            } else {
+                this.dibujarNombre('Jugador2', 940 ,210);
+            }
+    }
+        //dibujo los nombres de los jugadores
+    dibujarNombre(nombre, x, y) {
+            
+            this.contexto.beginPath(); // Inicializamos una ruta
+            this.contexto.lineCap = "butt"; // Trazo sin terminaciones
+            this.contexto.lineWidth = 5; // Trazo de 4 pixeles de ancho
+            this.contexto.strokeStyle = "#000000"; // Negro
+            this.contexto.fillStyle = "#1AB2B2"; // Cian
+            this.contexto.font = "45px Verdana"; // Tipografía
+            this.contexto.strokeText(nombre, x, y);
+            this.contexto.fillText(nombre, x, y);
+            this.contexto.closePath();
+        }
+
+
+
+
+
+
+    
+
+
+
 
     inicializarTablero(){  // asigna espacios al tablero
         let x=0; let y=0; let posX=0;let posY=0;let y1=0; let x1=0;
@@ -74,7 +124,7 @@ class Tablero {
       
         let x=890,y=500; let y1=300;
 
-        for (let index = 0; index < 10; index++) {
+        for (let index = 0; index < 30; index++) {
     
             x=x+20;
             this.fichasJugador1.push(new Ficha(x,y,40,'red',this.contexto));
@@ -87,7 +137,7 @@ class Tablero {
 
 
     isClickedFicha(clickedX,clickedY){
-
+        console.log(clickedX,clickedY);
        if(this.turno){
        
         for (let i = 0; i < this.fichasJugador1.length; i++) {

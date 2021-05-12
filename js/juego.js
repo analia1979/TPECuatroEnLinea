@@ -19,6 +19,7 @@ class Juego {
 
           this.contexto.clearRect(0,0,this.width,this.height);
           this.tablero.draw();
+        
 
     }
 
@@ -51,11 +52,6 @@ class Juego {
         
     }
 
-    comenzarJuego(){
-
-       
-       // this.tablero.drawMatrizEspacios();
-    }
 
     soltarFichaEnColumna(posX,posY){
 
@@ -65,10 +61,14 @@ class Juego {
         if(nroColumna!=-1){
             let espacio=this.tablero.obtenerUltimoLugarSinFicha(nroColumna);
             this.moverFicha(espacio[0].posX,espacio[0].posY);
-          //  console.log(espacio);
+            this.fichaSeleccionada.pararMovimiento();
             espacio[0].ficha=this.fichaSeleccionada;
-          //  console.log(espacio);
+            
+            console.log(espacio);
             this.buscarCuatroEnLinea(espacio);
+            //preguntar si buscarCuatroEnlinea tuvo exito
+            // if buscarCuatroEnLinea isTrue
+           
             this.modoMoviendo=false; 
             return true; 
         }
@@ -83,6 +83,7 @@ class Juego {
     }
     cambiarTurno(){
         this.tablero.cambiarTurno();
+        this.tablero.dibujarJugador();
     }
 
     buscarCuatroEnLinea(espacio){
@@ -100,7 +101,7 @@ class Juego {
             console.log('cantidad por izquierda'+ cantidadPorIzq);
             if((cantidadPorIzq+cantidadPorDer+1)==4){ // debo sumar la ficha por la cual es la que estoy buscando cuatro en linea
                 console.log('gano jugador dios sabe jajajj');
-               this.terminarJuego();
+                 this.terminarJuego();
             }
             else{
                 //buscar por arriba y abajo
