@@ -165,16 +165,16 @@ buscarHorizontalDerecha(x,y,casillero,cant){
     let color=casillero.ficha.obtenerColor();
     console.log(color);
     if(x==this.filas-1){ // no tiene derecha solo debe sumarse a si mismo;
-            cant++;
+            return cant;
     }else{
     
     for (let index = x; index <this.filas-1; index++) {
-            if(this.matrizEspacios[index][y].ficha!==null)
-                if(this.matrizEspacios[index][y].ficha.color==color){
+            if(this.matrizEspacios[index+1][y].ficha!=null)
+                if(this.matrizEspacios[index+1][y].ficha.color==color){
                             cant++
             }
       
-        if(cant==4 || this.matrizEspacios[index][y].ficha==null||this.matrizEspacios[index][y].ficha.color!=color){
+        if(cant==4 || this.matrizEspacios[index+1][y].ficha==null||this.matrizEspacios[index+1][y].ficha.color!=color){
             return cant;
         } 
     }}
@@ -184,18 +184,18 @@ buscarHorizontalIzquierda(x,y,casillero,cant){
    
     let color=casillero.ficha.obtenerColor();
     console.log(color);
-  if(x==this.filas-1){
+  if(x==0){
         
-
+        return cant;
   }
   else{
   
         for (let index = x; index >0; index--) {
         
-            if(this.matrizEspacios[index][y].ficha!=null && this.matrizEspacios[index][y].ficha.obtenerColor()==color){
+            if(this.matrizEspacios[index-1][y].ficha!=null && this.matrizEspacios[index-1][y].ficha.obtenerColor()==color){
                 cant++;
             }
-            if(cant==4||this.matrizEspacios[index][y].ficha==null || this.matrizEspacios[index][y].ficha.obtenerColor()!=color){
+            if(cant==4||this.matrizEspacios[index-1][y].ficha==null || this.matrizEspacios[index-1][y].ficha.obtenerColor()!=color){
                 return cant;
             }
             

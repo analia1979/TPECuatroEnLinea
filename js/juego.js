@@ -89,17 +89,21 @@ class Juego {
        let x=espacio[1];
        let y=espacio[2];
         let casillero=espacio[0];
-        let cantidad=0;
-        cantidad=this.tablero.buscarHorizontalDerecha(x,y,casillero,cantidad);
-        console.log('cantidad por derecha'+cantidad);
-        if (cantidad<4){
+        let cantidadPorDer=0;
+        let cantidadPorIzq=0;
+        cantidadPorDer=this.tablero.buscarHorizontalDerecha(x,y,casillero,cantidadPorDer);
+        console.log('cantidad por derecha'+cantidadPorDer);
+        if (cantidadPorDer<4){
             
-            cantidad=this.tablero.buscarHorizontalIzquierda(x,y,casillero,cantidad);
-            cantidad--; // le resto uno porque sino me sumo yo dos veces
-            console.log('cantidad por izquierda'+ cantidad);
-            if(cantidad==4){
+            cantidadPorIzq=this.tablero.buscarHorizontalIzquierda(x,y,casillero,cantidadPorIzq);
+           
+            console.log('cantidad por izquierda'+ cantidadPorIzq);
+            if((cantidadPorIzq+cantidadPorDer+1)==4){
                 console.log('gano');
                this.terminarJuego();
+            }
+            else{
+                //buscar por arriba o abajo
             }
 
         }
