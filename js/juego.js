@@ -98,12 +98,50 @@ class Juego {
             cantidadPorIzq=this.tablero.buscarHorizontalIzquierda(x,y,casillero,cantidadPorIzq);
            
             console.log('cantidad por izquierda'+ cantidadPorIzq);
-            if((cantidadPorIzq+cantidadPorDer+1)==4){
-                console.log('gano');
+            if((cantidadPorIzq+cantidadPorDer+1)==4){ // debo sumar la ficha por la cual es la que estoy buscando cuatro en linea
+                console.log('gano jugador dios sabe jajajj');
                this.terminarJuego();
             }
             else{
-                //buscar por arriba o abajo
+                //buscar por arriba y abajo
+                let cantidad=this.buscarVertical(x,y,casillero);
+
+                console.log(cantidad);
+                if(cantidad==4){
+                    console.log('gano');
+                    this.terminarJuego();
+                }
+                else{
+                        //buscar 1raDiagonalIzqArriba-DerechaAbajo
+                    let cantidad=this.buscarDiagonal(x,y,casillero);
+                    console.log(cantidad);
+                    if (cantidad==4){
+
+                        console.log('ganoPorDiagonal');
+                        this.terminarJuego();
+                    }
+                    else{
+
+                        //buscar 2daDiagonalDerArriba-IzqAbajo
+                        let cantidad=this.buscar2daDiagonal(x,y,casillero);
+                        console.log('cantidad');
+                        if(cantidad==4){
+                            console.log('ganoPorsegundaDiagonal');
+                            this.terminarJuego();
+                        }
+                        else
+                        console.log('seguirJugando');
+
+
+
+                    }
+                    
+
+                }
+                
+
+                
+                
             }
 
         }
@@ -115,6 +153,95 @@ class Juego {
     terminarJuego(){
 
        this.jugando=false;
+
+    }
+
+    buscarVertical(x,y, casillero){
+        let cantidadPorArriba=0;
+        let cantidadPorAbajo=0;
+        cantidadPorArriba=this.tablero.cantidadPorArriba(x,y,casillero,cantidadPorArriba);
+        console.log('cantidad por arriba'+ cantidadPorArriba);
+        if(cantidadPorArriba<4){
+            //buscar hacia abajo
+            cantidadPorAbajo=this.tablero.cantidadPorAbajo(x,y,casillero,cantidadPorAbajo);
+            console.log('cantidad por abajo'+cantidadPorAbajo);
+            if((cantidadPorArriba+cantidadPorAbajo+1)==4){
+
+                  return (cantidadPorArriba+cantidadPorAbajo+1)
+                  //  this.terminarJuego();
+
+            }
+
+
+        }
+        else{
+
+            console.log('gano');
+            return(cantidadPorArriba);
+           // this.terminarJuego();
+        }
+
+        return(cantidadPorArriba+cantidadPorAbajo+1);
+
+    }
+
+    buscarDiagonal(x,y,casillero){
+
+        let cantidadDiagDerecha=0;
+        let cantidadDiagIzquierda=0;
+        cantidadDiagDerecha=this.tablero.cantidadDiagDerechaAbajo(x,y,casillero,cantidadDiagDerecha);
+        console.log('cantidad Diag DerAbajo'+ cantidadDiagDerecha);
+        if(cantidadDiagDerecha<4){
+            //buscar hacia abajo
+            cantidadDiagIzquierda=this.tablero.cantidadDiagIzqArriba(x,y,casillero,cantidadDiagIzquierda);
+            console.log('cantidad DiagIzqArriba'+cantidadDiagIzquierda);
+            if((cantidadDiagDerecha+cantidadDiagIzquierda+1)==4){
+
+                  return (cantidadDiagDerecha+cantidadDiagIzquierda+1)
+                  //  this.terminarJuego();
+
+            }
+
+
+        }
+        else{
+
+            console.log('gano');
+            return(cantidadDiagDerecha);
+           // this.terminarJuego();
+        }
+
+        return(cantidadDiagDerecha+cantidadDiagIzquierda+1);
+
+
+    }
+
+    buscar2daDiagonal(x,y,casillero){
+        let cantidadDiagDerecha=0;
+        let cantidadDiagIzquierda=0;
+        cantidadDiagDerecha=this.tablero.cantidadDiagDerechaArriba(x,y,casillero,cantidadDiagDerecha);
+        console.log('cantidad Diag DerAbajo'+ cantidadDiagDerecha);
+        if(cantidadDiagDerecha<4){
+            //buscar hacia abajo
+            cantidadDiagIzquierda=this.tablero.cantidadDiagIzqAbajo(x,y,casillero,cantidadDiagIzquierda);
+            console.log('cantidad DiagIzqAbajo'+cantidadDiagIzquierda);
+            if((cantidadDiagDerecha+cantidadDiagIzquierda+1)==4){
+
+                  return (cantidadDiagDerecha+cantidadDiagIzquierda+1)
+                  //  this.terminarJuego();
+
+            }
+
+
+        }
+        else{
+
+            console.log('gano');
+            return(cantidadDiagDerecha);
+           // this.terminarJuego();
+        }
+
+        return(cantidadDiagDerecha+cantidadDiagIzquierda+1);
 
     }
 
