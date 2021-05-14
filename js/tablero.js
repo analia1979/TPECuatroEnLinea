@@ -14,14 +14,13 @@ class Tablero {
         this.inicializarFichasJugadores();
         this.inicializarTablero();
         this.turno=this.asignarTurno(); // asigno turno aleatoreamente
-    
+        this.nombreJuego='Cuatro en Linea';
     }
 
     draw(){
-
-        // a cada ficha le digo que se dibuje
-    // this.dibujarJugador();
-      for (let fila = 0; fila < this.fila; fila++) {
+       
+      this.drawTitulo(this.nombreJuego,352,48); 
+      for (let fila = 0; fila < this.fila; fila++) {  //dibujo cada espacio del tablero
          for (let columna = 0; columna < this.col; columna++) {
             
                 this.matrizEspacios[fila][columna].draw();
@@ -29,12 +28,6 @@ class Tablero {
          }
           
       }
-
-      for (let index = 0; index < this.columnasEspacios.length; index++) {
-           this.columnasEspacios[index].draw();
-          
-      }
-      
        this.fichasJugador1.forEach(ficha => {
             ficha.draw();
         });
@@ -50,13 +43,26 @@ class Tablero {
         let result = Math.floor((Math.random() * 2) + 1); 
 
         if (result == 1) {
-          //  this.dibujarJugador();
+        
             return true;
           
         } else {
-            //this.dibujarJugador();
+         
            return false;
         }
+
+    }
+
+    drawTitulo(titulo,x,y){
+
+        this.contexto.beginPath(); 
+        this.contexto.lineCap = "butt"; 
+        this.contexto.lineWidth = 5; 
+        this.contexto.strokeStyle = "#000000"; 
+        this.contexto.fillStyle = "#1AB2B2"; 
+        this.contexto.font = "45px Lora"; 
+        this.contexto.strokeText(titulo, x,y); 
+        this.contexto.closePath();
 
     }
 
@@ -71,28 +77,21 @@ class Tablero {
             }
     }
         //dibujo los nombres de los jugadores
+   
+   
+   
     dibujarNombre(nombre, x, y) {
             
-            this.contexto.beginPath(); // Inicializamos una ruta
-            this.contexto.lineCap = "butt"; // Trazo sin terminaciones
-            this.contexto.lineWidth = 5; // Trazo de 4 pixeles de ancho
-            this.contexto.strokeStyle = "#000000"; // Negro
-            this.contexto.fillStyle = "#1AB2B2"; // Cian
-            this.contexto.font = "45px Verdana"; // Tipografía
+            this.contexto.beginPath(); 
+            this.contexto.lineCap = "butt"; 
+            this.contexto.lineWidth = 5; 
+            this.contexto.strokeStyle = "#000000"; 
+            this.contexto.fillStyle = "#1AB2B2"; 
+            this.contexto.font = "45px Lora"; 
             this.contexto.strokeText(nombre, x, y);
             this.contexto.fillText(nombre, x, y);
             this.contexto.closePath();
         }
-
-
-
-
-
-
-    
-
-
-
 
     inicializarTablero(){  // asigna espacios al tablero
         let x=0; let y=0; let posX=0;let posY=0;let y1=0; let x1=0;
@@ -100,8 +99,9 @@ class Tablero {
             x1=x1+100;
             y1=100; 
             //creo un arreglo de espacios que van a indicar la columna
-            let nuevoEspacio1=new EspacioTablero(x1,y1,40,'red',this.contexto); 
-            this.columnasEspacios.push(nuevoEspacio1);
+            
+           /*  let nuevoEspacio1=new EspacioTablero(x1,y1,40,'red',this.contexto); 
+            this.columnasEspacios.push(nuevoEspacio1); */
            // nuevoEspacio1.draw();
             this.matrizEspacios[x]=[]; y=0;
             for (let columna = 0; columna < 600; columna+=100) {
@@ -116,24 +116,40 @@ class Tablero {
 
            x++; 
         }
-       console.log(this.matrizEspacios); 
+        for (let index = 0; index < this.matrizEspacios.length; index++) {
+           let x1=this.matrizEspacios[index][0].posX;
+           let y1=this.matrizEspacios[index][0].posY;
+            let nuevoEspacio1=new EspacioTablero(x1,y1,40,'red',this.contexto); 
+            this.columnasEspacios.push(nuevoEspacio1);
+            
+        }
+       console.log(this.columnasEspacios); 
     }
 
     inicializarFichasJugadores(){
 
       
         let x=890,y=500; let y1=300;
-
-        for (let index = 0; index < 30; index++) {
-    
-            x=x+20;
-            this.fichasJugador1.push(new Ficha(x,y,40,'red',this.contexto));
-            this.fichasJugador2.push(new Ficha(x,y1,40,'green',this.contexto));
-          
-        }      
+        let imgFicha= new Image();
+        imgFicha.src='./img/ficha.png';        
         
-      
+        imgFicha.onload=()=>{
+                for (let index = 0; index < 30; index++) {
+            
+                    x=x+20;               
+                    let fichaJugador1=new Ficha(x,y,40,'red',this.contexto,imgFicha);
+                    let fichaJugador2=new Ficha(x,y1,40,'green',this.contexto,imgFicha);
+                    this.fichasJugador1.push(fichaJugador1);
+                    this.fichasJugador2.push(fichaJugador2);
+                    fichaJugador1.draw();
+                    fichaJugador2.draw();
+                
+                }      
+                
+            }
     }
+
+
 
 
     isClickedFicha(clickedX,clickedY){
@@ -208,6 +224,10 @@ cambiarTurno(){
     this.turno=!this.turno;
    
     
+}
+
+obtenerTurno(){
+    return this.turno;
 }
 
 buscarHorizontalDerecha(x,y,casillero,cant){
@@ -315,19 +335,37 @@ cantidadDiagDerechaAbajo(x,y,casillero,cantidad){
         return cantidad;
     }
     else{
-        let fila=x;
-        for (let index = y; index <this.col-1 ; index++) {
-            if(this.matrizEspacios[fila+1][index+1].ficha!=null && this.matrizEspacios[fila+1][index+1].ficha.obtenerColor()==color){
-                fila++;
-                cantidad++;
-            }
-            if(cantidad==4||this.matrizEspacios[fila][index+1].ficha==null || this.matrizEspacios[fila][index+1].ficha.obtenerColor()!=color){
-               console.log(this.matrizEspacios[fila][index+1].ficha);
-                return cantidad;
-            }
+            let fila=x;
+            let col=y;
+           let  encontre=true;
+            //for (let index =y; index <this.col-1 ; index++) {
+          while( (fila<this.fila-1 && col<this.col-1)&& (encontre) ){    
+               // if(this.fila-1!=fila){
+                
+                    if(this.matrizEspacios[fila+1][col+1].ficha!=null && 
+                        this.matrizEspacios[fila+1][col+1].ficha.obtenerColor()==color){
             
-        }
+                          
+                            cantidad++;
+                    }
+                        /* else
 
+                        if(this.matrizEspacios[fila][index+1].ficha!=null && this.matrizEspacios[fila][index+1].ficha.obtenerColor()==color){
+
+                                cantidad++;
+                         } */
+            
+            
+                    if(cantidad==4||this.matrizEspacios[fila][col+1].ficha==null || this.matrizEspacios[fila][col+1].ficha.obtenerColor()!=color){
+                            
+                           // return cantidad; 
+                           encontre=false;
+                }
+                fila++;col++;
+                
+          //  }
+
+        }
     }
     return cantidad
 

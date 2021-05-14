@@ -7,8 +7,8 @@ canvas.height = 800;
 ctx=canvas.getContext('2d');
 let ficha=null;
 let movimientoValido=true;
-/* let cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
-cuatroEnLinea.draw(); */
+let cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
+cuatroEnLinea.draw(); 
 //let jugando=true;
 
 canvas.addEventListener('mousedown',(e)=>{   
@@ -44,11 +44,11 @@ canvas.addEventListener('mouseup',(e)=>{
 
 
 
-let btnDibujarMatriz=document.getElementById('btnMatriz');
-btnDibujarMatriz.addEventListener('click',()=>{
+let btnComenzarJuego=document.getElementById('btnComenzarJuego');
+btnComenzarJuego.addEventListener('click',()=>{
 
    
-    cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
+     cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
     cuatroEnLinea.draw();
     cuatroEnLinea.tablero.dibujarJugador();
 

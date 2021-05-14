@@ -25,6 +25,13 @@ class EspacioTablero{
     
     }
 
+    obtenerColor(){
+
+        if(this.ficha!=null){
+            return this.ficha.obtenerColor();
+        }
+    }
+
   
     
     

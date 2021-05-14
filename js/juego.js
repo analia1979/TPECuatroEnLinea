@@ -64,13 +64,21 @@ class Juego {
             this.fichaSeleccionada.pararMovimiento();
             espacio[0].ficha=this.fichaSeleccionada;
             
-            console.log(espacio);
-            this.buscarCuatroEnLinea(espacio);
-            //preguntar si buscarCuatroEnlinea tuvo exito
-            // if buscarCuatroEnLinea isTrue
-           
+            //console.log(espacio);
+           if( this.buscarCuatroEnLinea(espacio)){
+               if(this.tablero.obtenerTurno()){ //
+                   //gano jugador1
+                    this.tablero.drawTitulo('Gano Jugador1',366,94);
+                  
+               }
+               else{
+                 this.tablero.drawTitulo('Gano Jugador2',366,94);}
+            //return false; // para impedir que cambie el turno
+            }                 
+               
             this.modoMoviendo=false; 
             return true; 
+        
         }
         else{
            
@@ -92,16 +100,18 @@ class Juego {
         let casillero=espacio[0];
         let cantidadPorDer=0;
         let cantidadPorIzq=0;
+        let colorFicha=casillero.obtenerColor();
         cantidadPorDer=this.tablero.buscarHorizontalDerecha(x,y,casillero,cantidadPorDer);
-        console.log('cantidad por derecha'+cantidadPorDer);
+       // console.log('cantidad por derecha'+cantidadPorDer);
         if (cantidadPorDer<4){
             
             cantidadPorIzq=this.tablero.buscarHorizontalIzquierda(x,y,casillero,cantidadPorIzq);
            
-            console.log('cantidad por izquierda'+ cantidadPorIzq);
+           // console.log('cantidad por izquierda'+ cantidadPorIzq);
             if((cantidadPorIzq+cantidadPorDer+1)==4){ // debo sumar la ficha por la cual es la que estoy buscando cuatro en linea
-                console.log('gano jugador dios sabe jajajj');
+                
                  this.terminarJuego();
+                 return true;
             }
             else{
                 //buscar por arriba y abajo
@@ -109,8 +119,9 @@ class Juego {
 
                 console.log(cantidad);
                 if(cantidad==4){
-                    console.log('gano');
+                   // console.log('gano');
                     this.terminarJuego();
+                    return true;
                 }
                 else{
                         //buscar 1raDiagonalIzqArriba-DerechaAbajo
@@ -118,8 +129,9 @@ class Juego {
                     console.log(cantidad);
                     if (cantidad==4){
 
-                        console.log('ganoPorDiagonal');
+                        //console.log('ganoPorDiagonal');
                         this.terminarJuego();
+                        return true;
                     }
                     else{
 
@@ -127,27 +139,23 @@ class Juego {
                         let cantidad=this.buscar2daDiagonal(x,y,casillero);
                         console.log('cantidad');
                         if(cantidad==4){
-                            console.log('ganoPorsegundaDiagonal');
+                           // console.log('ganoPorsegundaDiagonal');
                             this.terminarJuego();
+                            return true;
                         }
                         else
-                        console.log('seguirJugando');
-
-
+                        console.log('seguirJugando si hay mas fichas seria');
 
                     }
-                    
-
                 }
-                
-
-                
-                
+        
             }
 
         }
-        else
+        else{
             this.terminarJuego();
+            return true;
+        }
 
     }
 
