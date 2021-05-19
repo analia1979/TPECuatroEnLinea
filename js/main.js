@@ -44,11 +44,24 @@ canvas.addEventListener('mouseup',(e)=>{
 
 
 
+let btnReiniciarPartida=document.getElementById('btnReiniciarPartida');
 let btnComenzarJuego=document.getElementById('btnComenzarJuego');
 btnComenzarJuego.addEventListener('click',()=>{
 
    
      cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
+    cuatroEnLinea.draw();
+    cuatroEnLinea.tablero.dibujarJugador();
+    btnReiniciarPartida.disabled=false;
+
+})
+
+
+
+btnReiniciarPartida.addEventListener('click',()=>{
+
+   
+    cuatroEnLinea= new Juego(ctx,canvas.width,canvas.height);
     cuatroEnLinea.draw();
     cuatroEnLinea.tablero.dibujarJugador();
 

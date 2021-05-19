@@ -24,10 +24,11 @@ class Juego {
     }
 
     isClickedFicha(clickedX,clickedY){
-
+       
        let fichaSeleccionada=this.tablero.isClickedFicha(clickedX,clickedY);
        if(fichaSeleccionada!=null){
             this.fichaSeleccionada=fichaSeleccionada;
+
             this.modoMoviendo=true;
             return true;
 
@@ -62,6 +63,7 @@ class Juego {
             let espacio=this.tablero.obtenerUltimoLugarSinFicha(nroColumna);
             this.moverFicha(espacio[0].posX,espacio[0].posY);
             this.fichaSeleccionada.pararMovimiento();
+            this.tablero.habilitarMovimiento(); // tengo que habilitar el movimiento de las fichas no usadas
             espacio[0].ficha=this.fichaSeleccionada;
             
             //console.log(espacio);

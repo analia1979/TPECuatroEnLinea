@@ -7,6 +7,7 @@ constructor(posX,posY,radio,color,contexto,imagen){
     this.radio=radio;
     this.contexto=contexto;
     this.cancelarMovimiento=true;
+    this.usada=false;
     this.imagen=imagen;
 
 
@@ -56,10 +57,18 @@ pararMovimiento(){
 
     this.cancelarMovimiento=false;
 }
+habilitarMovimiento(){
 
+    this.cancelarMovimiento=true;
+}
 obtenerColor(){
 
     return this.color;
+}
+
+esUsada(){
+    console.log(this.usada);
+    return this.usada;
 }
 
 

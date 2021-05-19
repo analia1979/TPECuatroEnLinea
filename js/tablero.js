@@ -153,22 +153,39 @@ class Tablero {
 
 
     isClickedFicha(clickedX,clickedY){
-        console.log(clickedX,clickedY);
+//console.log(clickedX,clickedY);
        if(this.turno){
        
         for (let i = 0; i < this.fichasJugador1.length; i++) {
 
-                if (this.fichasJugador1[i].isClicked(clickedX,clickedY))
+                if (this.fichasJugador1[i].isClicked(clickedX,clickedY)){
+                        this.fichasJugador1[i].usada=true;
+                        for (let i = 0; i < this.fichasJugador1.length; i++) {
+                         
+                            if(this.fichasJugador1[i].usada==false)
+                            this.fichasJugador1[i].pararMovimiento();
+                        }
+                      
                         return this.fichasJugador1[i];
-           
+                    }
             
         }
+
+
     }
         else{
             for (let i = 0; i < this.fichasJugador2.length; i++) {
 
-                if (this.fichasJugador2[i].isClicked(clickedX,clickedY))
+                if (this.fichasJugador2[i].isClicked(clickedX,clickedY)){
+                        this.fichasJugador2[i].usada=true;
+                      for (let i = 0; i < this.fichasJugador2.length; i++) {
+                         
+                          if(this.fichasJugador2[i].usada==false)
+                          this.fichasJugador2[i].pararMovimiento();
+                      }
+                     
                         return this.fichasJugador2[i];
+                    }
            
             
         }
@@ -180,6 +197,8 @@ class Tablero {
         return null;
 
     }
+
+
 
 obtenerColumna(clickedX,clickedY){
    
@@ -216,6 +235,39 @@ obtenerUltimoLugarSinFicha(col){
 
    return null;
  
+}
+
+habilitarMovimiento(){
+
+        if(this.turno){
+
+            // habilitar movimientos de las fichas del jugador para las proximas jugadas
+           for (let index = 0; index < this.fichasJugador1.length; index++) {
+            
+                if(this.fichasJugador1[index].usada==false){
+
+                    this.fichasJugador1[index].habilitarMovimiento();
+               }
+               
+           }
+            
+        }
+        else{
+
+            for (let index = 0; index < this.fichasJugador2.length; index++) {
+           
+                    if(this.fichasJugador2[index].usada==false){
+                 
+                     this.fichasJugador2[index].habilitarMovimiento();
+                }
+                
+            }
+        
+
+        }
+
+
+
 }
 
 cambiarTurno(){
